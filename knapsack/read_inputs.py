@@ -1,4 +1,4 @@
-""" Read input files and generates dictionaries.
+""" Read and analyze problem input files.
 
 Files are named ks_n_i:
 - n being the number of items in the problem
@@ -7,13 +7,16 @@ Files are named ks_n_i:
 The first row of the file contains the number of items and the knapsack capacity
 Each subsequent row contains the value of the item and its weight. """
 
+import matplotlib.pyplot as plt
+import pandas as pd
+
 path = "knapsack\\data\\"
 
 def read_file(file_name):
-    """ Reads input file and returns a list containing:
+    """ Read input file and return a list containing:
         - [0] the count of items
         - [1] the knapsack capacity
-        - [3] the items
+        - [2] the items
     Each item is represented by a dictionary with keys index (order in input file),
     value and weight."""
 
@@ -34,5 +37,32 @@ def read_file(file_name):
         return [count_items, capacity, lst_items]
             
 
-print(read_file('ks_19_0'))
+def create_df(data):
+    """ Convert input data into a pandas dataframe"""
+    df = pd.DataFrame(data[2])
+    df = df.astype({'value': float, 'weight': float})
+    df['density'] = df['value'] / df['weight']  # items value per unit of weight
+    return df
 
+
+def print_scatter(df):
+    """ Generate a scatter plot of items value and weight """
+    plt.figure(dpi=100)
+    plt.title('Items value against items weight')
+    plt.xlabel('Items weight')
+    plt.ylabel('Items value')
+    plt.grid(color='gray', linestyle='-', linewidth=.15)
+    plt.scatter(df['weight'], df['value'])
+    plt.show()
+
+def print_histogram(df):
+    """ Generate a histogram of items density """
+    plt.figure(dpi=100)
+    plt.title('Items value against items weight')
+    plt.grid(color='gray', linestyle='-', linewidth=.15)
+    plt.hist(df['density'])
+    plt.show()
+
+data = read_file('ks_400_0')
+df = create_df(data)
+print_histogram(df)
