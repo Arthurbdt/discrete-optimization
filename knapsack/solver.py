@@ -3,6 +3,7 @@ Load data file and solve knapsack problem
 """
 
 import read_inputs as inp
+import branch_bound as bb
 
 def solve_with_heuristic(data):
     """
@@ -35,6 +36,9 @@ def solve_with_heuristic(data):
     print(f'Selected items: {selected}')
 
 # load data and execute solver
-file_name = 'ks_200_0'
+file_name = 'ks_4_0'
 data = inp.read_file(file_name)
-solve_with_heuristic(data)
+#solve_with_heuristic(data)
+items = sorted(data[2], key = lambda i: i['weight'] / i['value'] )
+a = bb.solve_bb(items, data[1])
+print(a)
