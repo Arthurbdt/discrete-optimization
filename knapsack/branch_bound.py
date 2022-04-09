@@ -49,25 +49,25 @@ def solve_bb(items, capacity):
         left.level = parent.level + 1
         left.capacity = parent.capacity - items[left.level]['weight'] 
         left.value = parent.value + items[left.level]['value']
-        left.in_knapsack = parent.in_knapsack
+        left.in_knapsack = list(parent.in_knapsack)
         left.in_knapsack.append(items[left.level]['index'])
 
         # check if left node is worth exploring
         if (left.capacity >=0) and left.value > current_max_value: #maybe > instead of >=
             current_max_value = left.value
-            # compute best estimate
-            left.bound = bound(left, items)  # this will need to be modified
-            # if best estimate is greater than current solution, add to the queue
-            if left.bound > current_max_value:
-                queue.append(left)
-                current_best_items = left.in_knapsack
+            current_best_items = left.in_knapsack
+        # compute best estimate
+        left.bound = bound(left, items)  # this will need to be modified
+        # if best estimate is greater than current solution, add to the queue
+        if left.bound > current_max_value:
+            queue.append(left)
         
         # create right node - do not select next item
         right = Node(None, None, None, None)
         right.level = parent.level + 1
         right.capacity = parent.capacity
         right.value = parent.value
-        right.in_knapsack = parent.in_knapsack
+        right.in_knapsack = list(parent.in_knapsack)
         right.bound = bound(right, items)
 
         # if best estimate is greater than current solution, add to the queue
