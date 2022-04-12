@@ -36,7 +36,7 @@ def solve_with_heuristic(data):
     print(f'Selected items: {selected}')
 
 # load data and execute solver
-file_name = 'ks_30_0'
+file_name = 'ks_10000_0'
 data = inp.read_file(file_name)
 #solve_with_heuristic(data)
 items = sorted(data[2], key = lambda i: i['weight'] / i['value'] )
