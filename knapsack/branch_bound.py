@@ -1,18 +1,3 @@
-"""
-Branch and bound algortihm for solving knapsack problem.
-
-Args:
-    - items: list containing one dictionary for each item available. Each dict
-    must have these 3 keys: index, value and weight. The list must be sorted by
-    (value / weight) in decreasing order
-    - capacity: the total capacity of the knapsack
-
-Returns:
-    - selected: list of {0-1} indicating whether item of current index has been selected
-    - value: total value stored in knapsack
-"""
-
-
 class Node:
     """
     Store information regarding the node to explore
@@ -44,6 +29,21 @@ def bound(node, items):
     return value
 
 def solve_bb(items, capacity):
+    """
+    Implementation of branch and bound algorith for (0-1) knapsack problem
+
+    Args:
+    - items: list containing one dictionary for each item available. Each dict
+    must have these 3 keys: index, value and weight. The list must be sorted by
+    (value / weight) in decreasing order
+    - capacity: the total capacity of the knapsack
+
+    Returns:
+    - selected: list of {0-1} indicating whether item of current index has been selected
+    - value: total value stored in knapsack
+    """
+    items = sorted(items, key = lambda i: i['weight'] / i['value'] )
+
     # create root of the tree and add to exploration queue
     root = Node(-1, capacity, 0, [])
     queue = [root]

@@ -36,10 +36,8 @@ def solve_with_heuristic(data):
     print(f'Selected items: {selected}')
 
 # load data and execute solver
-file_name = 'ks_10000_0'
+file_name = 'ks_50_0'
 data = inp.read_file(file_name)
-#solve_with_heuristic(data)
-items = sorted(data[2], key = lambda i: i['weight'] / i['value'] )
-a = bb.solve_bb(items, data[1])
+a = bb.solve_bb(data[2], data[1])
 print(f'Value in knapsack: {a[1]}')
 print(f'Selected items: {a[0]}')
