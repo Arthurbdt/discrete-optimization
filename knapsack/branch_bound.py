@@ -49,6 +49,7 @@ def solve_bb(items, capacity, search = 'breadth'):
     - items: list containing one dictionary for each item available. Each dict
     must have these 3 keys: index, value and weight.
     - capacity: the total capacity of the knapsack
+    - search strategy: function accepts 'breadth', 'depth', 'best'
 
     Returns:
     - selected: list of {0-1} indicating whether item of current index has been selected
