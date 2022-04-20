@@ -41,7 +41,7 @@ def bound(node, items):
                 capacity = 0
     return value
 
-def solve_bb(items, capacity):
+def solve_bb(items, capacity, search = 'breadth'):
     """
     Implementation of branch and bound algorith for (0-1) knapsack problem
 
@@ -61,10 +61,15 @@ def solve_bb(items, capacity):
     root.bound = bound(root, items) 
     queue = [root]
     current_max_value = 0
+    visited_nodes = 0
 
     # start iteration
     while len(queue) > 0:
+        # sort queue per bound descending in case of best-first search
+        if search == 'best':
+            queue = sorted(queue, key = lambda i: i.bound, reverse = True)
         parent = queue.pop(0)
+        visited_nodes += 1
         # only explore node if its estimate is still greater than current best solution
         if parent.bound > current_max_value: 
 
@@ -84,7 +89,10 @@ def solve_bb(items, capacity):
                     
             # if best estimate is greater than current solution, add to the queue
             if left.bound > current_max_value:
-                queue.append(left)
+                if search == 'depth':
+                    queue.insert(0, left)
+                else:
+                    queue.append(left)
             
             # create right node (i.e. do not select next item)
             right = Node(None, None, None, None)
@@ -96,14 +104,17 @@ def solve_bb(items, capacity):
 
             # if best estimate is greater than current solution, add to the queue
             if right.bound > current_max_value:
-                queue.append(right) 
+                if search == 'depth':
+                    queue.insert(1, right)
+                else:
+                    queue.append(right)
 
     # end of the iteration
     selected = [0] * len(items)
     for i in current_best_items:
         selected[i] = 1
 
-    return selected, current_max_value
+    return selected, current_max_value, visited_nodes
 
 
 

@@ -3,8 +3,6 @@ def solve_greedy(data):
     Runs a simple heuristic to attempt to solve the knapsack problem.
     Heuristic sorts the items by their value density (i.e. value / weight) descending
     and adds items to the solution until there is no capacity left for any other item.
-
-    Prints the knapsack value, capacity remaining and whether each item has been selected.
     """
     # load problem data
     num_items = data[0]
