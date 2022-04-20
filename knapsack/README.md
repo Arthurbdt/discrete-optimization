@@ -20,7 +20,8 @@ Let:
 
 The problem can be formulated mathematically as:
 
-*Maximize* 
+*Maximize:*
+ 
 <img src="https://render.githubusercontent.com/render/math?math=\sum_{i=1}^{n} v_i * x_i">
 
 *Subject to:*
