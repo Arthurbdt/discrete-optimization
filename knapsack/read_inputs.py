@@ -11,6 +11,7 @@ Each subsequent row contains the value of the item and its weight.
 
 import matplotlib.pyplot as plt
 import pandas as pd
+import numpy as np
 
 path = "knapsack\\data\\"
 
@@ -68,8 +69,8 @@ def print_histogram(df):
     Generate a histogram of items density.
     """
     plt.figure(dpi=100)
-    plt.title('Items value against items weight')
+    plt.title('Distribution of value density')
     plt.grid(color='gray', linestyle='-', linewidth=.15)
-    plt.hist(df['density'])
+    plt.hist(df['density'], edgecolor = 'black', linewidth = 1.0)
     plt.show()
 
